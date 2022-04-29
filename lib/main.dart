@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
 import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
 main(){
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home:LoginPage(),
+      //SplashScreen(),
     );
   }
 }
