@@ -7,12 +7,14 @@ import 'package:orgfirstproject/Repository/api_client.dart';
 class UserApi{
   final signuppath ="/signup";
   ApiClient apiClient =ApiClient();
+
  // ?email=person1%40gmail.com&password=person1&name=nameperson
 
   //sign up page start
-Future <SignupPageClass> SignupFunction(String name,String email,int password)async{
-  Response response=await apiClient.invokeAPI(signuppath+'?email=$email&apssword=$password&name=$name', "POST", null);
-return SignupPageClass(name: 'name', email: 'kdka', password: 123);
+Future  SignupFunction(dynamic name1,dynamic email1,dynamic password1)async{
+  Response response=await apiClient.invokeAPI(signuppath+'?email=$email1&apassword=$password1&name=$name1', "POST", null);
+  return jsonDecode(response.body);
+//return SignupPageClass(name: name1, email: email1, password: password1);
 }
 
   //login page start

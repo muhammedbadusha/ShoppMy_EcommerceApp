@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:orgfirstproject/ApiCalls/UserApi.dart';
+import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+class SignupPage extends StatelessWidget {
+  //const SignupPage({Key? key}) : super(key: key);
 
-  @override
-  State<SignupPage> createState() => _SignupPageState();
-}
-
-class _SignupPageState extends State<SignupPage> {
+  UserApi userApi = UserApi();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController=TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
   var _key = GlobalKey<FormState>();
+
   _submit() {
+    print(emailController.toString());
     if (_key.currentState!.validate()) {
-      return;
+      return userApi.SignupFunction(
+          nameController.text, emailController.text, passwordController.text);
     } else {
-      return 'something wrong';
+      return print('Not valid details');
     }
   }
 
-  bool _obscureText = true;
+  // bool _obscureText = true;
+
   //String _password;
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
+  // void _toggle() {
+  //   setState(() {
+  //     _obscureText = !_obscureText;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 38),
         child: Container(
@@ -44,7 +48,7 @@ class _SignupPageState extends State<SignupPage> {
               child: Column(
                 children: [
                   ClipPath(
-                    clipper:WaveClipperTwo(reverse: false),
+                    clipper: WaveClipperTwo(reverse: false),
                     child: Container(
                       height: MediaQuery.of(context).size.height * .40,
                       width: MediaQuery.of(context).size.width,
@@ -79,6 +83,10 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.red,
+                  //   radius: 50,
+                  // ),
                   //////1st email
                   Form(
                       key: _key,
@@ -92,7 +100,7 @@ class _SignupPageState extends State<SignupPage> {
                               children: [
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                      const EdgeInsets.fromLTRB(0, 14, 0, 0),
                                   child: Icon(
                                     Icons.person,
                                     size: 17,
@@ -101,19 +109,18 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                                 Container(
                                   width:
-                                  MediaQuery.of(context).size.width * .80,
+                                      MediaQuery.of(context).size.width * .80,
                                   padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                                   child: TextFormField(
                                     controller: nameController,
                                     validator: (val) {
-                                      if (val!.isEmpty){
+                                      if (val!.isEmpty) {
                                         return "Please enter your name";
                                       }
                                     },
                                     autofillHints: [AutofillHints.email],
                                     cursorColor: Colors.red,
                                     decoration: InputDecoration(
-
                                       border: UnderlineInputBorder(),
                                       labelText: "Username",
                                     ),
@@ -126,7 +133,7 @@ class _SignupPageState extends State<SignupPage> {
                               children: [
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                      const EdgeInsets.fromLTRB(0, 14, 0, 0),
                                   child: Icon(
                                     Icons.email,
                                     size: 17,
@@ -134,8 +141,8 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                                 Container(
-                             width:
-                                  MediaQuery.of(context).size.width * .80,
+                                  width:
+                                      MediaQuery.of(context).size.width * .80,
                                   padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                                   child: TextFormField(
                                     controller: emailController,
@@ -149,7 +156,6 @@ class _SignupPageState extends State<SignupPage> {
                                     autofillHints: [AutofillHints.email],
                                     cursorColor: Colors.red,
                                     decoration: InputDecoration(
-
                                       border: UnderlineInputBorder(),
                                       labelText: "Email",
                                     ),
@@ -163,7 +169,7 @@ class _SignupPageState extends State<SignupPage> {
                               children: [
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                      const EdgeInsets.fromLTRB(0, 14, 0, 0),
                                   child: Icon(
                                     Icons.lock,
                                     size: 17,
@@ -172,35 +178,43 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                                 Container(
                                   width:
-                                  MediaQuery.of(context).size.width * .80,
+                                      MediaQuery.of(context).size.width * .80,
                                   padding: EdgeInsets.fromLTRB(10, 30, 10, 05),
-                                  child: TextFormField(
-                                    controller: passwordController,
-                                    validator: (val) {
-                                      if (val == "") {
-                                        return "password Can't Empty";
-                                      } else if (val!.length < 6) {
-                                        return "Password must be 6 character or above";
-                                      }
+                                  child:
+                                      BlocBuilder<HideTextBloc, HideTextState>(
+                                    builder: (context, state) {
+                                      return TextFormField(
+                                        controller: passwordController,
+                                        validator: (val) {
+                                          if (val == "") {
+                                            return "password Can't Empty";
+                                          } else if (val!.length < 6) {
+                                            return "Password must be 6 character or above";
+                                          }
+                                        },
+                                        autofillHints: [AutofillHints.password],
+                                        cursorColor: Colors.red,
+                                        obscureText: state.hidetext,
+                                        decoration: InputDecoration(
+                                          suffixIcon: IconButton(
+                                              onPressed: () {
+                                                BlocProvider.of<HideTextBloc>(
+                                                        context)
+                                                    .add(Hidetext());
+                                              },
+                                              icon: Icon(
+                                                state.hidetext
+                                                    ? Icons
+                                                        .visibility_off_outlined
+                                                    : Icons.visibility,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark,
+                                              )),
+                                          border: UnderlineInputBorder(),
+                                          labelText: "Password",
+                                        ),
+                                      );
                                     },
-                                    autofillHints: [AutofillHints.password],
-                                    cursorColor: Colors.red,
-                                    obscureText: _obscureText,
-                                    decoration: InputDecoration(
-                                      suffixIcon: IconButton(
-                                          onPressed: () {
-                                            _toggle();
-                                          },
-                                          icon: Icon(
-                                            _obscureText
-                                                ? Icons.visibility
-                                                : Icons.visibility_off_outlined,
-                                            color: Theme.of(context)
-                                                .primaryColorDark,
-                                          )),
-                                      border: UnderlineInputBorder(),
-                                      labelText: "Password",
-                                    ),
                                   ),
                                 ),
                               ],
@@ -262,16 +276,22 @@ class _SignupPageState extends State<SignupPage> {
                     ],
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * .05,
-                    width: MediaQuery.of(context).size.width * .80,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.red,
-                    ),
-                    child: TextButton(onPressed: (){
-                     Navigator.of(context).pop();
-                    }, child: Center(child: Text('LOG IN',style: TextStyle(color: Colors.white),),))
-                  ),
+                      height: MediaQuery.of(context).size.height * .05,
+                      width: MediaQuery.of(context).size.width * .80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.red,
+                      ),
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Center(
+                            child: Text(
+                              'LOG IN',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ))),
                 ],
               ),
             ),

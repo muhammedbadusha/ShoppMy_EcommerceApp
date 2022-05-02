@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
 import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
@@ -12,14 +14,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context)=>HideTextBloc()),
 
-        primaryColor: Colors.blue,
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+
+          primaryColor: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home:LoginPage(),
+        //SplashScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      home:LoginPage(),
-      //SplashScreen(),
     );
   }
 }
