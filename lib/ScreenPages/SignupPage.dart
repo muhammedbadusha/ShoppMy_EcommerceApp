@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:orgfirstproject/ApiCalls/UserApi.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
+import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
 
 class SignupPage extends StatelessWidget {
   //const SignupPage({Key? key}) : super(key: key);
@@ -35,8 +38,31 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return BlocListener<SignupblocBloc, SignupblocState>(
+  listener: (context, state) {
+    if(state is SignupblocLoading){
+      Loader.show(context,
+          isSafeAreaOverlay: false,
+          isAppbarOverlay: true,
+          isBottomBarOverlay: false,
+          progressIndicator: CircularProgressIndicator(),
+          themeData: Theme.of(context)
+              .copyWith(accentColor: Colors.black38),
+          overlayColor: Color(0x99E8EAF6));
+    }
+    if(state is SignupblocLoaded){
+      Loader.hide();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeScreen()));
+    }
+    if(state is SignupblocError){
+      Text('something went wrong');
+    }
+    Text('server side error');
+    // TODO: implement listener
+  },
+  child: Scaffold(
+      body: Padding
+        (
         padding: const EdgeInsets.only(top: 38),
         child: Container(
           height: MediaQuery.of(context).size.height * .99,
@@ -244,6 +270,7 @@ class SignupPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30)),
                       child: ElevatedButton(
                           onPressed: () {
+                            CircularProgressIndicator();
                             _submit();
                           },
                           child: Text('SIGN UP'))),
@@ -298,6 +325,7 @@ class SignupPage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ),
+);
   }
 }

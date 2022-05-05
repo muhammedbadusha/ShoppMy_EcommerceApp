@@ -214,11 +214,11 @@ class _LoginPageState extends State<LoginPage> {
                         child: Divider(
                           indent: 7,
                           endIndent: 5,
-                          color: Colors.black,
+                          color: Colors.grey,
                           thickness: 1,
                         ),
                       ),
-                      Text('or'),
+                      Text('or',style: TextStyle(fontWeight: FontWeight.w500),),
                       Container(
                         height: 50,
                         // color: Colors.red,
@@ -226,10 +226,11 @@ class _LoginPageState extends State<LoginPage> {
                         child: Divider(
                           indent: 3,
                           endIndent: 3,
-                          color: Colors.black,
+                          color: Colors.grey,
                           thickness: 1,
                         ),
                       )
+
                     ],
                   ),
                   Padding(
