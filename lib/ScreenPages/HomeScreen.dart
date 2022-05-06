@@ -36,37 +36,91 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height * .95,
+        height: MediaQuery.of(context).size.height,
         color: Colors.black,
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 25),
-              color: Colors.white,
-              height: MediaQuery.of(context).size.height * .15,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      width: MediaQuery.of(context).size.width * .40,
-                      height: MediaQuery.of(context).size.height * .10,
-                      child: Image.asset(
-                        'assets/images/splashlogo.png',
-                        fit: BoxFit.cover,
-                      )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.red,
-                      ))
-                ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return  SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 25),
+                      color: Colors.white,
+                      height: MediaQuery.of(context).size.height * .15,
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              width: MediaQuery.of(context).size.width * .40,
+                              height: MediaQuery.of(context).size.height * .10,
+                              child: Image.asset(
+                                'assets/images/splashlogo.png',
+                                fit: BoxFit.cover,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                color: Colors.red,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .06,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.yellow,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .27,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.blue,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .05,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .07,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.purple,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .07,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.teal,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .01,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .26,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.deepOrangeAccent,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .25,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.green,
+                    ),
+
+                  ],
+                ),
               ),
-            ),
-          ],
+            );
+          }),
+
         ),
-      ),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -97,8 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         currentIndex: selectedIndex,
         onTap: onItemTapped,
-        selectedItemColor: Colors.red,
-      ),
+        selectedItemColor: Colors.red)
     );
+
   }
 }

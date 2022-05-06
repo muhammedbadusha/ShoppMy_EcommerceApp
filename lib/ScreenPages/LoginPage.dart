@@ -13,6 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   ///////
   var _key = GlobalKey<FormState>();
   _submit() {
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                   ClipPath(
                     clipper: WaveClipperTwo(reverse: false),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * .40,
+                      height: MediaQuery.of(context).size.height * .35,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: Colors.blue,
@@ -96,6 +97,43 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 Padding(
                                   padding:
+                                  const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                  child: Icon(
+                                    Icons.person_pin_outlined,
+                                    size: 17,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                  MediaQuery.of(context).size.width * .80,
+                                  padding: EdgeInsets.fromLTRB(10, 30, 10, 05),
+                                  child: TextFormField(
+                                    controller: nameController,
+                                    validator: (val) {
+                                      if (val == "") {
+                                        return "name Can't Empty";
+                                      } else if (val!.length < 3) {
+                                        return "name must be 3 character or above";
+                                      }
+                                    },
+                                    autofillHints: [AutofillHints.password],
+                                    cursorColor: Colors.red,
+                                    //obscureText: _obscureText,
+                                    decoration: InputDecoration(
+
+                                      border: UnderlineInputBorder(),
+                                      labelText: "Enter your name",
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding:
                                       const EdgeInsets.fromLTRB(0, 14, 0, 0),
                                   child: Icon(
                                     Icons.email,
@@ -128,6 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ],
                             ),
+
                             ////////////2nd
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -211,22 +250,22 @@ class _LoginPageState extends State<LoginPage> {
                         height: 50,
                         // color: Colors.yellow,
                         width: 190,
-                        child: Divider(
+                        child:const Divider(
                           indent: 7,
                           endIndent: 5,
-                          color: Colors.grey,
+                          color: Colors.black38,
                           thickness: 1,
                         ),
                       ),
-                      Text('or',style: TextStyle(fontWeight: FontWeight.w500),),
+                      const Text('or',style: TextStyle(fontWeight: FontWeight.w500),),
                       Container(
                         height: 50,
                         // color: Colors.red,
                         width: 190,
-                        child: Divider(
+                        child:const Divider(
                           indent: 3,
                           endIndent: 3,
-                          color: Colors.grey,
+                          color: Colors.black38,
                           thickness: 1,
                         ),
                       )
@@ -243,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.red,
                       ),
                       child:TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignupPage()));},
-                          child: Center(child: Text('Sign up',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),),)),
+                          child:const Center(child: Text('Sign up',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),),)),
                     ),
                   ),
                 ],

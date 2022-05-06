@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orgfirstproject/ApiCalls/UserApi.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
-import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
 import 'package:orgfirstproject/ScreenPages/SignupPage.dart';
-import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
-main(){
+
+
+main()async{
+
   runApp( MyApp());
 }
 
@@ -29,7 +30,7 @@ BlocProvider(create: (context)=>SignupblocBloc(userApi)),
           primaryColor: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home:HomeScreen(),
+        home:LoginPage(),
         //SplashScreen(),
       ),
     );

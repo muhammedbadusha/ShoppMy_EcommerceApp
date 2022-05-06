@@ -5,39 +5,49 @@ import 'package:orgfirstproject/ApiCalls/UserApi.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:orgfirstproject/ModelClasses/SignupModel.dart';
 import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
+import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SignupPage extends StatelessWidget {
+
+class SignupPage extends StatefulWidget {
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+
+  String? chekkingvlaue;
   //const SignupPage({Key? key}) : super(key: key);
-
   UserApi userApi = UserApi();
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   TextEditingController nameController = TextEditingController();
 
   var _key = GlobalKey<FormState>();
 
-  _submit() {
-    print(emailController.toString());
-    if (_key.currentState!.validate()) {
-      return userApi.SignupFunction(
-          nameController.text, emailController.text, passwordController.text);
-    } else {
-      return print('Not valid details');
-    }
-  }
-
   // bool _obscureText = true;
-
-  //String _password;
-  // void _toggle() {
-  //   setState(() {
-  //     _obscureText = !_obscureText;
-  //   });
-  // }
+bool passwordshow = false;
+SignupModel signupModel=SignupModel();
 
   @override
+  Future<void> saveData()async{
+    final sharePrefobj=await SharedPreferences.getInstance();
+    sharePrefobj.setString('signId',chekkingvlaue.toString());
+  }
   Widget build(BuildContext context) {
+    _submit() {
+      print(emailController.toString());
+      if (_key.currentState!.validate()) {
+        BlocProvider.of<SignupblocBloc>(context).add(SignconformEvent(nameController.value.text,emailController.value.text,passwordController.value.text));
+      } else {
+        return print('Not valid details');
+      }
+    }
     return BlocListener<SignupblocBloc, SignupblocState>(
   listener: (context, state) {
     if(state is SignupblocLoading){
@@ -51,6 +61,8 @@ class SignupPage extends StatelessWidget {
           overlayColor: Color(0x99E8EAF6));
     }
     if(state is SignupblocLoaded){
+
+      chekkingvlaue=signupModel.id.toString();
       Loader.hide();
       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeScreen()));
     }
@@ -60,6 +72,7 @@ class SignupPage extends StatelessWidget {
     Text('server side error');
     // TODO: implement listener
   },
+
   child: Scaffold(
       body: Padding
         (
@@ -138,6 +151,7 @@ class SignupPage extends StatelessWidget {
                                       MediaQuery.of(context).size.width * .80,
                                   padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                                   child: TextFormField(
+
                                     controller: nameController,
                                     validator: (val) {
                                       if (val!.isEmpty) {
@@ -220,16 +234,21 @@ class SignupPage extends StatelessWidget {
                                         },
                                         autofillHints: [AutofillHints.password],
                                         cursorColor: Colors.red,
-                                        obscureText: state.hidetext,
+                                        obscureText: passwordshow,
                                         decoration: InputDecoration(
                                           suffixIcon: IconButton(
                                               onPressed: () {
-                                                BlocProvider.of<HideTextBloc>(
-                                                        context)
-                                                    .add(Hidetext());
+                                                // // BlocProvider.of<HideTextBloc>(
+                                                // //         context)
+                                                //     .add(Hidetext());
+
+                                                setState(() {
+                                                  passwordshow = !passwordshow;
+                                                });
+
                                               },
                                               icon: Icon(
-                                                state.hidetext
+                                               passwordshow
                                                     ? Icons
                                                         .visibility_off_outlined
                                                     : Icons.visibility,
@@ -270,7 +289,7 @@ class SignupPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30)),
                       child: ElevatedButton(
                           onPressed: () {
-                            CircularProgressIndicator();
+
                             _submit();
                           },
                           child: Text('SIGN UP'))),
@@ -328,4 +347,5 @@ class SignupPage extends StatelessWidget {
     ),
 );
   }
+
 }
