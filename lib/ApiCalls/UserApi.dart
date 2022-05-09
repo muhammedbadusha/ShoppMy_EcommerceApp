@@ -18,12 +18,11 @@ Future<SignupModel>  SignupFunction(dynamic name1,dynamic email1,dynamic passwor
 }
 
   // login page start
-  Future <String> loginPageFunction(String email, String password,String name)async{
-    String body= '{ "email": "$email", "password": "$password" ,"name":"$name"}';
-    Response response=await apiClient.invokeAPI(loginpath, 'POST', body);
+  Future <String> loginPageFunction(String name,String email, String password)async{
+    String body= '{"name":"$name","email": "$email", "password": "$password"}';
+    Response response=await apiClient.invokeAPI(loginpath,"POST", body);
     print("ha ha"+response.body);
    return response.body ;
-
   }
 
 

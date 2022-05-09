@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:orgfirstproject/Blocs/LoginBloc/loginbloc_bloc.dart';
 import 'package:orgfirstproject/ScreenPages/SignupPage.dart';
+
+import 'HomeScreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,13 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController nameController = TextEditingController();
   ///////
   var _key = GlobalKey<FormState>();
-  _submit() {
-    if (_key.currentState!.validate()) {
-      return;
-    } else {
-      return 'something wrong';
-    }
-  }
+
 
   bool _obscureText = true;
   //String _password;
@@ -36,7 +35,35 @@ class _LoginPageState extends State<LoginPage> {
   //bool isPhone(String input) => RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    _submit() {
+      if (_key.currentState!.validate()) {
+        BlocProvider.of<LoginblocBloc>(context).add(LoginCheckEvent(nameController.value.text, passwordController.value.text, emailController.value.text));
+      } else {
+        return 'something wrong';
+      }
+    }
+    return BlocListener<LoginblocBloc, LoginblocState>(
+  listener: (context, state) {
+    if(state is LoginblocLoading){
+      Loader.show(context,
+          isSafeAreaOverlay: false,
+          isAppbarOverlay: true,
+          isBottomBarOverlay: false,
+          progressIndicator: CircularProgressIndicator(),
+          themeData: Theme.of(context)
+              .copyWith(accentColor: Colors.black38),
+          overlayColor: Color(0x99E8EAF6));
+    }
+    if(state is LoginblocLoaded){
+      Loader.hide();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeScreen()));
+    }
+    if(state is LoginblocError){
+      Text('something went wrong');
+    }
+    // TODO: implement listener
+  },
+  child: Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 38),
         child: Container(
@@ -203,8 +230,8 @@ class _LoginPageState extends State<LoginPage> {
                                           },
                                           icon: Icon(
                                             _obscureText
-                                                ? Icons.visibility
-                                                : Icons.visibility_off_outlined,
+                                                ? Icons.visibility_off_outlined
+                                                :  Icons.visibility,
                                             color: Theme.of(context)
                                                 .primaryColorDark,
                                           )),
@@ -291,6 +318,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
+    ),
+);
   }
 }

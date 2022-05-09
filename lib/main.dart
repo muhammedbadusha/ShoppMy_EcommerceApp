@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orgfirstproject/ApiCalls/UserApi.dart';
+import 'package:orgfirstproject/Blocs/LoginBloc/loginbloc_bloc.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
 import 'package:orgfirstproject/ScreenPages/SignupPage.dart';
+import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
 
 
@@ -23,6 +25,7 @@ UserApi userApi=UserApi();
       providers: [
         BlocProvider(create: (context)=>HideTextBloc()),
 BlocProvider(create: (context)=>SignupblocBloc(userApi)),
+        BlocProvider(create: (context)=>LoginblocBloc(userApi)),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -30,7 +33,7 @@ BlocProvider(create: (context)=>SignupblocBloc(userApi)),
           primaryColor: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home:LoginPage(),
+        home:SplashScreen(),
         //SplashScreen(),
       ),
     );
