@@ -7,7 +7,6 @@ import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:orgfirstproject/ModelClasses/SignupModel.dart';
 import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
-import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

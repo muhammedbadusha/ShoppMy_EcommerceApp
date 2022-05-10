@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:orgfirstproject/ApiCalls/UserApi.dart';
@@ -15,17 +17,18 @@ class LoginblocBloc extends Bloc<LoginblocEvent, LoginblocState> {
   LoginblocBloc(this.userApi) : super(LoginblocInitial()) {
     on<LoginCheckEvent>((event, emit)async {
       emit(LoginblocLoading());
-      logincheck=await userApi.loginPageFunction(event.username,event.useremail, event.userpassword );
-      print("$logincheck"+"printed login check under");
-try{
-  if(logincheck=="Login Successful"){
-    print('success to loginpage equal');
-  }else if(logincheck=="Incorrect Email or password!") {
-    print('else if incorrect');
-  }
 
+     // print("$logincheck"+"printed login check under");
+try{
+  logincheck=await userApi.loginPageFunction(event.username,event.useremail, event.userpassword );
+  if(logincheck=="\"Login successful!\""){
+    print('success to loginpage equal');
+    emit(LoginblocLoaded());
+  }else{
+    emit(LoginIncorrect());
+  }
 }catch(error){
-  print('hai');
+  emit(LoginblocError());
 }
       // catch(error){
       //   emit(LoginblocError());

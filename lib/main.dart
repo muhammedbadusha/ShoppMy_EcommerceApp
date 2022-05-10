@@ -5,7 +5,6 @@ import 'package:orgfirstproject/Blocs/LoginBloc/loginbloc_bloc.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
-import 'package:orgfirstproject/ScreenPages/SignupPage.dart';
 import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
 
@@ -34,6 +33,9 @@ BlocProvider(create: (context)=>SignupblocBloc(userApi)),
         ),
         debugShowCheckedModeBanner: false,
         home:SplashScreen(),
+        routes: {
+          "logout":(context)=> LoginPage(),
+        },
         //SplashScreen(),
       ),
     );

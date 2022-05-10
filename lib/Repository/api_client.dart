@@ -45,7 +45,7 @@ String signupurl=basePath+path;
 
     print('status of $path =>' + (response.statusCode).toString());
     print(response.body);
-    if (response.statusCode >= 400) {
+    if (response.statusCode >= 402) {
       log(path +
           ' : ' +
           response.statusCode.toString() +
@@ -53,7 +53,7 @@ String signupurl=basePath+path;
           response.body);
 
       throw ApiException(
-          message: _decodeBodyBytes(response), statusCode: response.statusCode);
+          message: response.body, statusCode: response.statusCode);
     }
     return response;
   }

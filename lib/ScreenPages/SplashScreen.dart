@@ -17,15 +17,21 @@ String? signcheck;
     // TODO: implement initState
     super.initState();
     splashFunction();
+
   }
 
 Future<void> getSavedData()async{
-    final sharedPrefs=await SharedPreferences.getInstance();
-    signcheck=sharedPrefs.getString('signId');
-    if(signcheck==null){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+
+  final sharePrefobj1=await SharedPreferences.getInstance();
+  final signcheck=sharePrefobj1.getString('LoginResponse');
+
+    if(signcheck=="true"){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      print('if $signcheck');
     }else{
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+      print('else $signcheck');
+
     }
 }
   @override
