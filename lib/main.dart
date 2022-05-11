@@ -29,8 +29,8 @@ BlocProvider(create: (context)=>SignupblocBloc(userApi)),
       ],
       child: MaterialApp(
         theme: ThemeData(
-
-          primaryColor: Colors.blue,
+//primaryColorDark: Colors.red,
+          primaryColor: Colors.red,
         ),
         debugShowCheckedModeBanner: false,
         home:HomeScreen(),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:orgfirstproject/ScreenPages/AccountPage.dart';
@@ -37,14 +38,40 @@ class _HomeScreenState extends State<HomeScreen> {
     return SystemNavigator.pop();
   }
 
-  final sampaleText = ['Personal care', "Women footwear", "Women Store",'Personal care', "Women footwear", "Women Store"];
-final shopping=["shopping1.jpg","shopping2.jpeg","shopping3.jpg", "shopping1.jpg","shopping2.jpeg","shopping3.jpg",];
-final greenbig=["wedding1.jpg","redsaree.jpg","wedding1.jpg","redsaree.jpg"];
-final yellows=["wedding2.jpg","redsaree1.jpg","wedding2.jpg","redsaree1.jpg"];
-final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
-
-
-
+  final sampaleText = [
+    'Personal care',
+    "Women footwear",
+    "Women Store",
+    'Personal care',
+    "Women footwear",
+    "Women Store"
+  ];
+  final shopping = [
+    "shopping1.jpg",
+    "shopping2.jpeg",
+    "shopping3.jpg",
+    "shopping1.jpg",
+    "shopping2.jpeg",
+    "shopping3.jpg",
+  ];
+  final greenbig = [
+    "wedding1.jpg",
+    "redsaree.jpg",
+    "wedding1.jpg",
+    "redsaree.jpg"
+  ];
+  final yellows = [
+    "wedding2.jpg",
+    "redsaree1.jpg",
+    "wedding2.jpg",
+    "redsaree1.jpg"
+  ];
+  final oranges = [
+    "wedding3.jpg",
+    "redsaree2.jpg",
+    "wedding3.jpg",
+    "redsaree2.jpg"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +142,18 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(5))),
                                 child: TextFormField(
+                                  //: Colors.red,
                                   decoration: InputDecoration(
+                                    hoverColor: Colors.red,
                                     prefixIcon: Icon(Icons.search, size: 27),
                                     hintText:
                                         "Search by product or product code",
-                                    border: OutlineInputBorder(),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(4)),
+                                        borderSide: BorderSide(
+                                            width: 1,
+                                            color: Colors.yellowAccent)),
                                   ),
                                 ),
                               ),
@@ -136,10 +170,47 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .01,
                       ),
+                      GestureDetector(
+                        onTap: (){
+                          showModalBottomSheet(context: context, builder: (BuildContext context){
+
+                            return Container(
+                              height: MediaQuery.of(context).size.height * .20,
+                              // decoration: BoxDecoration(
+                              //   color: Colors.red,
+                              //   borderRadius: BorderRadius.only(
+                              //     topLeft: Radius.circular(10),
+                              //     topRight: Radius.circular(10)
+                              //   )
+                              // ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(left: 05),
+                          height: MediaQuery.of(context).size.height * .05,
+                          width: MediaQuery.of(context).size.width,
+                          color: Color(0xffb37bdb),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(Icons.location_on_outlined),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5,right: 5),
+                                child: Text('Add delivery location to get extra discount'),
+                              ),
+                              Icon(Icons.double_arrow_rounded)
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
                       Container(
                         height: MediaQuery.of(context).size.height * .10,
                         width: MediaQuery.of(context).size.width,
-                       // color: Colors.purple,
+                        // color: Colors.purple,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: shopping.length,
@@ -147,25 +218,40 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                               return Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Container(
-                                 // color: Colors.blue,
-                                  width: MediaQuery.of(context).size.width*.21,
+                                  // color: Colors.blue,
+                                  width:
+                                      MediaQuery.of(context).size.width * .21,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width: 60,
                                         height: 60,
                                         decoration: BoxDecoration(
-                                            image: DecorationImage(image: AssetImage('assets/images/'+shopping[index]),fit: BoxFit.cover),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/images/' +
+                                                        shopping[index]),
+                                                fit: BoxFit.cover),
                                             shape: BoxShape.circle,
                                             color: Color(0xFFe0f2f1)),
                                       ),
                                       Container(
-                                        alignment: Alignment.center,
-                                          height: MediaQuery.of(context).size.height * .02,
-                                          width: MediaQuery.of(context).size.width,
-                                         // color: Colors.red,
-                                          child: Text(sampaleText[index],style: TextStyle(fontSize: 10,fontWeight: FontWeight.w600),))
+                                          alignment: Alignment.center,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              .02,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          // color: Colors.red,
+                                          child: Text(
+                                            sampaleText[index],
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w600),
+                                          ))
                                     ],
                                   ),
                                 ),
@@ -184,7 +270,10 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    image: DecorationImage(image: AssetImage('assets/images/'+shopping[index]),fit: BoxFit.cover),
+                                      image: DecorationImage(
+                                          image: AssetImage('assets/images/' +
+                                              shopping[index]),
+                                          fit: BoxFit.cover),
                                       color: Colors.yellow,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(05))),
@@ -286,7 +375,7 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                         //color: Colors.cyanAccent,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount:greenbig.length ,
+                            itemCount: greenbig.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -307,9 +396,11 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                         child: Container(
                                           alignment: Alignment.topLeft,
                                           decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage('assets/mens/'+greenbig[index]),fit: BoxFit.cover
-                                            ),
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/mens/' +
+                                                          greenbig[index]),
+                                                  fit: BoxFit.cover),
                                               color: Colors.green,
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(5),
@@ -347,12 +438,14 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                                         Radius.circular(5),
                                                   )),
                                               child: Padding(
-                                                padding: const EdgeInsets.only(top: 3,left: 3),
+                                                padding: const EdgeInsets.only(
+                                                    top: 3, left: 3),
                                                 child: Text(
                                                   'New',
                                                   style: TextStyle(
                                                       fontSize: 15,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -368,7 +461,6 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                             padding: const EdgeInsets.only(
                                                 bottom: 10),
                                             child: Container(
-
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
@@ -378,9 +470,12 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                                       .width *
                                                   .32,
                                               decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage('assets/mens/'+yellows[index]),fit: BoxFit.cover,
-                                                ),
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'assets/mens/' +
+                                                            yellows[index]),
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                   color: Colors.limeAccent,
                                                   borderRadius:
                                                       BorderRadius.only(
@@ -390,7 +485,10 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                             ),
                                           ),
                                           Container(
-                                            child:Image.asset('assets/mens/'+oranges[index],fit: BoxFit.cover,),
+                                            child: Image.asset(
+                                              'assets/mens/' + oranges[index],
+                                              fit: BoxFit.cover,
+                                            ),
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -400,15 +498,17 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                                     .height *
                                                 .13,
                                             decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: AssetImage('assets/mens/'+oranges[index]),fit: BoxFit.cover
-                                              ),
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'assets/mens/' +
+                                                            oranges[index]),
+                                                    fit: BoxFit.cover),
                                                 color: Colors.orange,
                                                 borderRadius: BorderRadius.only(
                                                   bottomRight:
                                                       Radius.circular(10),
                                                 )),
-                                           //child: Image.asset(),
+                                            //child: Image.asset(),
                                           ),
                                         ],
                                       )
@@ -416,8 +516,7 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                   ),
                                 ),
                               );
-                            }
-                            ),
+                            }),
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * .29,
@@ -431,14 +530,17 @@ final oranges=["wedding3.jpg","redsaree2.jpg","wedding3.jpg","redsaree2.jpg"];
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(image: AssetImage('assets/images/'+shopping[index]),fit: BoxFit.cover),
+                                      image: DecorationImage(
+                                          image: AssetImage('assets/images/' +
+                                              shopping[index]),
+                                          fit: BoxFit.cover),
                                       color: Colors.yellow,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(05))),
                                   height:
-                                  MediaQuery.of(context).size.height * .20,
+                                      MediaQuery.of(context).size.height * .20,
                                   width:
-                                  MediaQuery.of(context).size.width * .90,
+                                      MediaQuery.of(context).size.width * .90,
                                 ),
                               );
                             }),
