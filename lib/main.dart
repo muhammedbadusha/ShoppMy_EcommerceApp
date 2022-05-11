@@ -4,6 +4,7 @@ import 'package:orgfirstproject/ApiCalls/UserApi.dart';
 import 'package:orgfirstproject/Blocs/LoginBloc/loginbloc_bloc.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
+import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
 import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
@@ -32,7 +33,7 @@ BlocProvider(create: (context)=>SignupblocBloc(userApi)),
           primaryColor: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home:SplashScreen(),
+        home:HomeScreen(),
         routes: {
           "logout":(context)=> LoginPage(),
         },
