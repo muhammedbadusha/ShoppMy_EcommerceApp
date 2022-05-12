@@ -36,8 +36,8 @@ String signupurl=basePath+path;
       case "POST_":
         response = await post(Uri.parse(url), headers:  {},body: body,);
         break;
-      case "GET_":
-        response = await post(Uri.parse(url), headers:  {},body: body,);
+      case "GET":
+        response = await post(Uri.parse(signupurl), headers:  {},body: body,);
         break;
       default:
         response = await get(Uri.parse(url), headers: {'Accept': 'application/json','Content-Type': 'application/json'});

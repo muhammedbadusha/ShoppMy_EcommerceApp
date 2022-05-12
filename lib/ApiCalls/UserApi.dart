@@ -25,7 +25,6 @@ Future<SignupModel>  SignupFunction(dynamic name1,dynamic email1,dynamic passwor
    return response.body ;
   }
 
-
 }
 
 
