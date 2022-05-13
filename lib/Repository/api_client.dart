@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -8,6 +9,7 @@ class ApiClient {
 
 
    final String basePath = 'http://192.168.18.39:8000';
+   // final String getbasePath="http://192.168.18.39:8000";
   static final String url = '';
 
   Future<Response> invokeAPI(String path, String method, Object? body
@@ -17,8 +19,9 @@ class ApiClient {
     };
     Response response;
 String signupurl=basePath+path;
+// String getproducts=getbasePath+path;
     // String loginurl = loginbasePath ;
-    // print(loginurl);
+    //  print(getproducts);
      print(signupurl);
 
     final nullableHeaderParams = (headerParams.isEmpty) ? null : headerParams;
@@ -37,14 +40,14 @@ String signupurl=basePath+path;
         response = await post(Uri.parse(url), headers:  {},body: body,);
         break;
       case "GET":
-        response = await post(Uri.parse(signupurl), headers:  {},body: body,);
+        response = await get(Uri.parse(signupurl), headers:  {'content-Type': 'application/json',},);
         break;
       default:
         response = await get(Uri.parse(url), headers: {'Accept': 'application/json','Content-Type': 'application/json'});
     }
 
     print('status of $path =>' + (response.statusCode).toString());
-    print(response.body);
+    // print('========'+response.body);
     if (response.statusCode >= 402) {
       log(path +
           ' : ' +

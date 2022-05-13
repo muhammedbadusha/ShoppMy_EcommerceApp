@@ -4,8 +4,8 @@
 /// price : "890"
 /// description : "nice watch"
 
-class AllProductsModel {
-  AllProductsModel({
+class AllProductModel {
+  AllProductModel({
       int? id, 
       String? productImage, 
       String? productName, 
@@ -18,7 +18,7 @@ class AllProductsModel {
     _description = description;
 }
 
-  AllProductsModel.fromJson(dynamic json) {
+  AllProductModel.fromJson(dynamic json) {
     _id = json['id'];
     _productImage = json['product_image'];
     _productName = json['product_name'];
@@ -30,12 +30,12 @@ class AllProductsModel {
   String? _productName;
   String? _price;
   String? _description;
-AllProductsModel copyWith({  int? id,
+AllProductModel copyWith({  int? id,
   String? productImage,
   String? productName,
   String? price,
   String? description,
-}) => AllProductsModel(  id: id ?? _id,
+}) => AllProductModel(  id: id ?? _id,
   productImage: productImage ?? _productImage,
   productName: productName ?? _productName,
   price: price ?? _price,
@@ -56,5 +56,9 @@ AllProductsModel copyWith({  int? id,
     map['description'] = _description;
     return map;
   }
-
+  static List<AllProductModel> listFromJson(List<dynamic> json){
+    return json == null
+        ? []
+        : json.map((value) => AllProductModel.fromJson(value)).toList();
+  }
 }
