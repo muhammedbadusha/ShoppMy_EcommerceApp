@@ -4,10 +4,22 @@ class OrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Orders page'),
+    return Scaffold(
+      backgroundColor: Colors.orangeAccent,
+      appBar: AppBar(
+        title: Text('OrdersPage'),
       ),
-    );
+      body: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Column(
+              children: [
+
+            ],
+          ),
+          ),
+        );
+      }));
+
   }
 }

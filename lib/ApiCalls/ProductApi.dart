@@ -12,4 +12,8 @@ class ProductApi{
     Response response=await apiClient.invokeAPI(path, 'GET', null);
     return AllProductModel.listFromJson(jsonDecode(response.body));
   }
+  Future <AllProductModel> idProductFunction()async{
+    Response response =await apiClient.invokeAPI(path, "GET", null);
+    return AllProductModel.fromJson(response.body);
+  }
 }

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orgfirstproject/Blocs/AllProductsBloc/all_productsbloc_bloc.dart';
 import 'package:orgfirstproject/ModelClasses/AllProductModel.dart';
 import 'package:orgfirstproject/ScreenPages/AccountPage.dart';
-import 'package:orgfirstproject/ScreenPages/CatalogsPage.dart';
-import 'package:orgfirstproject/ScreenPages/CollectionsPage.dart';
+import 'package:orgfirstproject/ScreenPages/CategoriesPage.dart';
 import 'package:orgfirstproject/ScreenPages/OrdersPage.dart';
+import 'package:orgfirstproject/ScreenPages/HelpPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,9 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   final pages = [
     const HomeScreen(),
-    const CatalogsPage(),
-    const CollectionsPage(),
+    const CategoriesPage(),
     const OrdersPage(),
+    const HelpPage(),
     const AccountPage(),
   ];
 
@@ -620,7 +620,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }),
                       ),
                       Container(
-                        color: Colors.purple,
+                        //color: Colors.purple,
                         height: MediaQuery.of(context).size.height * .07,
                         width: MediaQuery.of(context).size.width,
 
@@ -688,7 +688,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(top:6.5),
                                 child: Container(
-                                  color: Colors.yellow,
                                   height: MediaQuery.of(context).size.height * .14,
                                   width: MediaQuery.of(context).size.width,
                                   child: Center(
@@ -703,9 +702,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 }
                 if (state is AllProductsblocError) {
-                  return const Center(
-                      child: Text(
-                          'Something went wrong Please check it'));
+                  return Center(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * .20,
+                        width: MediaQuery.of(context).size.width*.80,
+                        child: Card(
+                          elevation: 10,
+
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                  'Error!',style: TextStyle(color: Colors.red,fontWeight: FontWeight.w800,fontSize: 18),),
+                              Text(
+                                  'Oops,something went wrong Please try again later.',style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 15),),
+                            ],
+                            ),
+                          ),
+                        ),
+                      ));
                 }
                 return Center(
                   child: Column(
@@ -723,6 +740,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }),
             bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home),
@@ -730,18 +748,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: Colors.grey,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.ad_units),
-                    label: 'Catelogs',
+                    icon: Icon(Icons.apps_outlined),
+                    label: 'Categories',
                     backgroundColor: Colors.grey,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.widgets_outlined),
-                    label: 'Collections',
-                    backgroundColor: Colors.grey,
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.article),
+                    icon: Icon(Icons.shopping_bag_outlined),
                     label: 'Orders',
+                    backgroundColor: Colors.grey,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.help),
+                    label: 'Help',
                     backgroundColor: Colors.grey,
                   ),
                   BottomNavigationBarItem(

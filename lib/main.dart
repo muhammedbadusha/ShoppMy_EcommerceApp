@@ -6,8 +6,11 @@ import 'package:orgfirstproject/Blocs/AllProductsBloc/all_productsbloc_bloc.dart
 import 'package:orgfirstproject/Blocs/LoginBloc/loginbloc_bloc.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
+import 'package:orgfirstproject/ScreenPages/CategoriesPage.dart';
+import 'package:orgfirstproject/ScreenPages/HelpPage.dart';
 import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
+import 'package:orgfirstproject/ScreenPages/OrdersPage.dart';
 import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
 
