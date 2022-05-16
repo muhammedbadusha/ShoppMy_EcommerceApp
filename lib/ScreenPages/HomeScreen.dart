@@ -21,9 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   final pages = [
     const HomeScreen(),
-    const CategoriesPage(),
+   CategoriesPage(),
     const OrdersPage(),
-    const HelpPage(),
+     HelpPage(),
     const AccountPage(),
   ];
 
@@ -672,30 +672,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisSpacing: 5, crossAxisCount: 2),
                       itemCount: allProductModel.length,
                       itemBuilder: (BuildContext ctx,int index) {
-                        return Container(
-                          // color: Colors.red,
-                          child: Column(
-                            children: [
-                              Container(
-                                height: MediaQuery.of(context).size.height * .20,
-                                width: MediaQuery.of(context).size.width,
-                                color: Colors.blue,
-                                child: Center(
-                                  child: Text('product image'),
-                                ),
-
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top:6.5),
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height * .14,
+                        return GestureDetector(
+                          onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                          return HelpPage(ProductId: allProductModel[index].id.toString());
+                        }));
+                          },
+                          child: Container(
+                            color: Colors.red,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: MediaQuery.of(context).size.height * .20,
                                   width: MediaQuery.of(context).size.width,
+                                  color: Colors.blue,
                                   child: Center(
-                                    child: Text(allProductModel[index].productName.toString()),
+                                    child: Text('product image'),
                                   ),
+
                                 ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top:6.5),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * .14,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Center(
+                                      child: Text(allProductModel[index].productName.toString()),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       });

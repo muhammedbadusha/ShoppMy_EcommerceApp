@@ -3,15 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:orgfirstproject/ApiCalls/ProductApi.dart';
 import 'package:orgfirstproject/ApiCalls/UserApi.dart';
 import 'package:orgfirstproject/Blocs/AllProductsBloc/all_productsbloc_bloc.dart';
+import 'package:orgfirstproject/Blocs/IdProductsBloc/id_products_bloc.dart';
 import 'package:orgfirstproject/Blocs/LoginBloc/loginbloc_bloc.dart';
 import 'package:orgfirstproject/Blocs/Passwordeye/hide_text_bloc.dart';
 import 'package:orgfirstproject/Blocs/SignupBloc/signupbloc_bloc.dart';
-import 'package:orgfirstproject/ScreenPages/CategoriesPage.dart';
-import 'package:orgfirstproject/ScreenPages/HelpPage.dart';
 import 'package:orgfirstproject/ScreenPages/HomeScreen.dart';
 import 'package:orgfirstproject/ScreenPages/LoginPage.dart';
-import 'package:orgfirstproject/ScreenPages/OrdersPage.dart';
-import 'package:orgfirstproject/ScreenPages/SplashScreen.dart';
 
 
 
@@ -33,6 +30,7 @@ ProductApi productApi =ProductApi();
 BlocProvider(create: (context)=>SignupblocBloc(userApi)),
         BlocProvider(create: (context)=>LoginblocBloc(userApi)),
         BlocProvider(create: (context)=>AllProductsblocBloc(productApi)),
+        BlocProvider(create: (context)=>IdProductsBloc(productApi)),
       ],
       child: MaterialApp(
         theme: ThemeData(
